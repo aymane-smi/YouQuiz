@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -23,4 +25,14 @@ public class Question {
     private QuestionType type;
     @Column(nullable = false)
     private double totalScore;
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Answer> answers;
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Validation> validations;
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Media> medias;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Level level;
+    @OneToMany(mappedBy = "question")
+    private List<TempQuiz> tempoQuiz;
 }

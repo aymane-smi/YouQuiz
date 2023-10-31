@@ -12,7 +12,7 @@ enum MediaType{
 class Quiz{
   - id: int
   - score: double
-  - showAnswears: boolean
+  - showAnswers: boolean
   - showFinalResult: boolean
   - chanceNbr: int
   - remark: String
@@ -33,7 +33,7 @@ class Question{
   - type: QuestionType
   - totalScore: double
 }
-class Answear{
+class Answer{
   - id: int
 }
 abstract class User{
@@ -75,21 +75,20 @@ class AssignQuiz{
   - played: int
   - result: double
 }
-
-Quiz -- Question
-Subject -- Subject
-AssignQuiz -- Student
-Quiz -- Answear
-Answear -- Question
-Question -- Validation
-Validation -- Response
-Question -- Media
-Question -- Level
-Quiz -- TempoQuiz
-TempoQuiz -- Question
-Trainer -- Quiz
-Trainer -- AssignQuiz
-Subject -- Question
+Subject "*" -- "0..1" Subject
+AssignQuiz "*" -- "1" Student
+Quiz "1" -- "*" Answer
+Answer "*" -- "1" Question
+Answer "1"-- "*"Student
+Question "*" -- Validation
+Validation -- "*" Response
+Question "1" -- "*" Media
+Question "1" -- "1" Level
+Quiz "*" -- TempoQuiz
+TempoQuiz -- "*" Question
+Trainer "1" -- "*" Quiz
+Quiz "1" -- "*" AssignQuiz
+Subject "1" -- "*"Question
 MediaType +-- Media
 QuestionType +-- Question
 

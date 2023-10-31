@@ -1,11 +1,10 @@
 package com.youquiz.youquiz.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +23,10 @@ public class Quiz {
     private int chanceNbr;
     @Column(nullable = false)
     private String remark;
+    @OneToMany(mappedBy = "student")
+    private List<AssignQuiz> assignQuizs;
+    @OneToMany(mappedBy = "quiz")
+    private List<Answer> answers;
+    @OneToMany(mappedBy = "quiz")
+    private List<TempQuiz> tempoQuiz;
 }

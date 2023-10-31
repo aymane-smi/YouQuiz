@@ -1,9 +1,6 @@
 package com.youquiz.youquiz.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,5 +17,8 @@ public class Level {
     private double maxScore;
     @Column(nullable = false)
     private double minScore;
+    @OneToOne(fetch = FetchType.LAZY)
+    @Column(name="Question_id")
+    private Question question;
 
 }
