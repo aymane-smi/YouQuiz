@@ -12,12 +12,14 @@ import java.util.List;
 public class Subject {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false, length = 100)
     private String title;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Sub_Parent")
     private Subject parent;
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Subject> childs;
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+    private List<Quiz> quizs;
 }

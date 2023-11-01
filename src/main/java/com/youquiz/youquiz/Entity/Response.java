@@ -12,7 +12,7 @@ import java.util.List;
 public class Response {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false, length = 255)
     private String response;
     @Column(nullable = false)

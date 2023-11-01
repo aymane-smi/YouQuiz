@@ -3,6 +3,8 @@ package com.youquiz.youquiz.Entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Immutable;
 
+import java.util.List;
+
 @Entity
 @Table(name = "validation")
 @Immutable
@@ -18,5 +20,8 @@ public class Validation {
     @JoinColumn(name = "Question_id")
     private Question question;
     @Column(nullable = false)
-    private boolean state;
+    private double point;
+
+    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY)
+    private List<Answer> answers;
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Level {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false, length = 255)
     private String description;
     @Column(nullable = false)

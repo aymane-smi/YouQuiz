@@ -8,6 +8,7 @@ enum MediaType{
   VIDEO
   IMAGE
   SOUND
+  DOCUMENT
 }
 class Quiz{
   - id: int
@@ -23,7 +24,7 @@ class Subject{
 }
 class Trainer extends User{
   - id: int
-  - role: String
+  - speciality: String
 }
 class Question{
   - id: int
@@ -34,7 +35,7 @@ class Question{
   - totalScore: double
 }
 class Answer{
-  - id: int
+  - played: int
 }
 abstract class User{
   - firstName: String
@@ -47,12 +48,12 @@ class Student extends User{
   - dateOfInscription: Date
 }
 class Validation{
-  - state: boolean
+  - id: int
+  - point: double
 }
 class Response{
   - id: int
   - response: String
-  - point: double
 }
 class Level{
   - id: int
@@ -67,7 +68,6 @@ class Media{
 }
 class TempoQuiz{
   - time: int
-  - disable: boolean
 }
 class AssignQuiz{
   - id: int
@@ -77,17 +77,16 @@ class AssignQuiz{
 }
 Subject "*" -- "0..1" Subject
 AssignQuiz "*" -- "1" Student
-Quiz "1" -- "*" Answer
-Answer "*" -- "1" Question
-Answer "1"-- "*"Student
+AssignQuiz "1" -- "*" Answer
+Answer "*" -- "1" Validation
 Question "*" -- Validation
 Validation -- "*" Response
 Question "1" -- "*" Media
-Question "1" -- "1" Level
+Question "*" -- "1" Level
 Quiz "*" -- TempoQuiz
 TempoQuiz -- "*" Question
 Trainer "1" -- "*" Quiz
-Quiz "1" -- "*" AssignQuiz
+Quiz "1" -- "1" AssignQuiz
 Subject "1" -- "*"Question
 MediaType +-- Media
 QuestionType +-- Question

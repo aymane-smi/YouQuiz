@@ -1,20 +1,19 @@
 package com.youquiz.youquiz.Entity;
 
 import jakarta.persistence.*;
-
+import org.hibernate.annotations.Immutable;
 @Entity
 @Table(name = "Answer")
+@Immutable
 public class Answer {
     @Id
     @GeneratedValue
     private Long id;
+    private int played;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Quiz_id")
-    private Quiz quiz;
+    @JoinColumn(name = "Assign_id")
+    private AssignQuiz assignQuiz;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Question_id")
-    private Question question;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Student_id")
-    private Student student;
+    @JoinColumn(name = "Validation_id")
+    private Validation validation;
 }

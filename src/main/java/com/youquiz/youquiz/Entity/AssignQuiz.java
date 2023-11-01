@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name="AssignQuizDTO")
+@Table(name="AssignQuiz")
 @Data
 @NoArgsConstructor
 public class AssignQuiz {
@@ -18,10 +20,12 @@ public class AssignQuiz {
     private int played;
     @Column(nullable = false)
     private double result;
-    @ManyToOne
-    @JoinColumn(name="student_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="Student_id")
     private Student student;
-    @ManyToOne
-    @JoinColumn(name="quiz_id")
+    @OneToOne(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
+    @JoinColumn(name="Quiz_id")
     private Quiz quiz;
+    @OneToMany(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
+    private List<Answer> ansewrs;
 }

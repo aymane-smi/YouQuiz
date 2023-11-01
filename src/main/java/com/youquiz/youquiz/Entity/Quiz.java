@@ -12,7 +12,7 @@ import java.util.List;
 public class Quiz {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private double score;
     @Column(nullable = false)
@@ -23,10 +23,14 @@ public class Quiz {
     private int chanceNbr;
     @Column(nullable = false)
     private String remark;
-    @OneToMany(mappedBy = "student")
-    private List<AssignQuiz> assignQuizs;
-    @OneToMany(mappedBy = "quiz")
-    private List<Answer> answers;
-    @OneToMany(mappedBy = "quiz")
+    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY)
+    private AssignQuiz assignQuiz;
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
     private List<TempQuiz> tempoQuiz;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Trainer_id")
+    private Trainer trainer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Subject_id")
+    private Subject subject;
 }

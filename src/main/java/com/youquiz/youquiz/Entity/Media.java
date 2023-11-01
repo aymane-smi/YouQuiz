@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Media {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

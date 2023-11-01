@@ -14,7 +14,8 @@ import java.util.List;
 public class Student extends User{
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
+    @Temporal(TemporalType.DATE)
     private LocalDate dateOfInscription;
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<AssignQuiz> assignQuiz;

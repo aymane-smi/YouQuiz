@@ -13,7 +13,7 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private int responseNbr;
     @Column(nullable = false)
@@ -26,13 +26,11 @@ public class Question {
     @Column(nullable = false)
     private double totalScore;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-    private List<Answer> answers;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Validation> validations;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Media> medias;
     @OneToOne(fetch = FetchType.LAZY)
     private Level level;
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<TempQuiz> tempoQuiz;
 }
