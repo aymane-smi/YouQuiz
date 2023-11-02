@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-public class Question {
+public class Question implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
@@ -29,8 +31,12 @@ public class Question {
     private List<Validation> validations;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Media> medias;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Level_id")
     private Level level;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<TempQuiz> tempoQuiz;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Subject_id")
+    private Subject subject;
 }

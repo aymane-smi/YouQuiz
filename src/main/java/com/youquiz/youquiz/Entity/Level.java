@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
-public class Level {
+public class Level implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
@@ -17,8 +21,7 @@ public class Level {
     private double maxScore;
     @Column(nullable = false)
     private double minScore;
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(name="Question_id")
-    private Question question;
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY)
+    private List<Question> questions;
 
 }

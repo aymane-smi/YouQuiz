@@ -3,12 +3,14 @@ package com.youquiz.youquiz.Entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Immutable;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "validation")
 @Immutable
-public class Validation {
+public class Validation implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;

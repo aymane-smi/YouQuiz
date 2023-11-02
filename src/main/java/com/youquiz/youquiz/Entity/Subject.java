@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-public class Subject {
+public class Subject implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
     private Long id;
@@ -21,5 +23,5 @@ public class Subject {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Subject> childs;
     @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
-    private List<Quiz> quizs;
+    private List<Question> questions;
 }
