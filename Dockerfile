@@ -1,0 +1,7 @@
+FROM postgres:latest
+
+ENV POSTGRES_PASSWORD=aymane@123
+ENV POSTGRES_DB=YouQuiz
+ENV POSTGRES_USER=aymane
+
+EXPOSE 5432

@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.Service;
+package com.youquiz.youquiz.Repository;
 
 import com.youquiz.youquiz.Entity.AssignQuiz;
 import org.springframework.data.jpa.repository.JpaRepository;

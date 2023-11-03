@@ -26,6 +26,7 @@ public class Quiz implements Serializable {
     @Column(nullable = false)
     private String remark;
     @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY)
+    @JoinColumn(name = "AssignQuiz_id")
     private AssignQuiz assignQuiz;
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
     private List<TempQuiz> tempoQuiz;

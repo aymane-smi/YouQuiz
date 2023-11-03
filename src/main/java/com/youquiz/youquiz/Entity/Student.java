@@ -21,6 +21,6 @@ public class Student extends User implements Serializable {
     private LocalDate dateOfInscription;
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
     private List<AssignQuiz> assignQuiz;
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Answer> answers;
+//    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+//    private List<Answer> answers;
 }
