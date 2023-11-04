@@ -13,10 +13,10 @@ public class TempQuiz implements Serializable {
     private TempID id;
     private int time;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Quiz_id")
+    @MapsId("Quiz_id")
     private Quiz quiz;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Question_id")
+    @MapsId("Question_id")
     private Question question;
 }

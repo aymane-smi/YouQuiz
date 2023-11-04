@@ -1,9 +1,8 @@
 package com.youquiz.youquiz.Rename;
 
-import com.youquiz.youquiz.Entity.Question;
-import com.youquiz.youquiz.Entity.Quiz;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
+import jakarta.persistence.MapsId;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class TempID implements Serializable {
     private static final Long serialVersionUID = 1L;
-    private Quiz quiz;
-    private Question question;
+    @Column(name = "Quiz_id")
+    private Long quiz;
+    @Column(name = "Question_id")
+    private Long question;
 }
