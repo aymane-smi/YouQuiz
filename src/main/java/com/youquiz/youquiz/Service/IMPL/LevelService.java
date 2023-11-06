@@ -25,4 +25,13 @@ public class LevelService implements ILevelService {
         level = levelRepository.save(level);
         return modelMapper.map(level, LevelDTO.class);
     }
+
+    @Override
+    public LevelDTO update(long id, LevelDTO levelDTO) {
+        Level level = modelMapper.map(levelDTO, Level.class);
+        level.setId(id);
+        System.out.println("id:"+level.getId());
+        level = levelRepository.save(level);
+        return modelMapper.map(level, LevelDTO.class);
+    }
 }

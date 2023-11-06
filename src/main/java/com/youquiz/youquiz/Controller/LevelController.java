@@ -18,7 +18,7 @@ public class LevelController {
     @Autowired
     private LevelService levelService;
     @PostMapping
-    public ResponseEntity<?> createLevel(@Valid @RequestBody LevelDTO level){
+    public ResponseEntity<Map<String, Object>> createLevel(@Valid @RequestBody LevelDTO level){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "created");
@@ -27,6 +27,18 @@ public class LevelController {
         }catch(Exception e){
             message.put("message", "cannot create a new level");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> editLevel(@PathVariable long id, @Valid @RequestBody LevelDTO level){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "updated");
+            message.put("level", levelService.update(id, level));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("message", "cannot update the leve level");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
 }
