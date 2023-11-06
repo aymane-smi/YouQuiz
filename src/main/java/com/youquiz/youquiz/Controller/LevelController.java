@@ -1,6 +1,7 @@
 package com.youquiz.youquiz.Controller;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
+import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.LevelService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,23 @@ public class LevelController {
             message.put("level", levelService.update(id, level));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("message", "cannot update the leve level");
+            message.put("message", "cannot update the level");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> findLevelById(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("level", levelService.findById(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(NotFoundException e){
+            message.put("message", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            message.put("message", "cannot find the level");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 }
