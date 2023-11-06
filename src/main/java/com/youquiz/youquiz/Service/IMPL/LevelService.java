@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class LevelService implements ILevelService {
     @Autowired
@@ -41,5 +44,10 @@ public class LevelService implements ILevelService {
         if(modelMapper.map(levelRepository.findById(id), LevelDTO.class) == null)
             throw new NotFoundException();
         return modelMapper.map(levelRepository.findById(id), LevelDTO.class);
+    }
+
+    @Override
+    public List<LevelDTO> findAll() {
+        return Arrays.asList(modelMapper.map(levelRepository.findAll(), LevelDTO[].class));
     }
 }

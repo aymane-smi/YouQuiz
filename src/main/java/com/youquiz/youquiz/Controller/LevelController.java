@@ -57,4 +57,15 @@ public class LevelController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> findLevels(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("levels", levelService.findAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch (Exception e){
+            message.put("message", "cannot find all the levels");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }
