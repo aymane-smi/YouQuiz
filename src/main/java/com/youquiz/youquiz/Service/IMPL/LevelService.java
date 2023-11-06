@@ -17,11 +17,12 @@ import java.util.List;
 public class LevelService implements ILevelService {
     @Autowired
     private ModelMapper modelMapper;
-    private final LevelRepository levelRepository;
+    @Autowired
+    private LevelRepository levelRepository;
 
-    public LevelService(LevelRepository levelRepository) {
-        this.levelRepository = levelRepository;
-    }
+    //public LevelService(LevelRepository levelRepository) {
+        //this.levelRepository = levelRepository;
+    //}
 
     @Override
     public LevelDTO save(LevelDTO levelDTO) {
