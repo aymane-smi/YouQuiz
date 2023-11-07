@@ -25,10 +25,10 @@ public class Quiz implements Serializable {
     private int chanceNbr;
     @Column(nullable = false)
     private String remark;
-    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "AssignQuiz_id")
     private AssignQuiz assignQuiz;
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TempQuiz> tempoQuiz;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Trainer_id")

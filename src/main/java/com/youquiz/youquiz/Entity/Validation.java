@@ -24,6 +24,6 @@ public class Validation implements Serializable {
     @Column(nullable = false)
     private double point;
 
-    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "validation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
 }

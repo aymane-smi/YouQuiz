@@ -18,6 +18,6 @@ public class Trainer extends User implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String role;
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Quiz> quizs;
 }

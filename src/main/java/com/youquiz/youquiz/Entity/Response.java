@@ -19,6 +19,6 @@ public class Response implements Serializable {
     private String response;
     @Column(nullable = false)
     private double point;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "response")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "response", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Validation> validations;
 }
