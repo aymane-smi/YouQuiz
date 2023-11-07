@@ -28,7 +28,7 @@ public class Level implements Serializable {
     @Column(nullable = false)
     @Min(value = 0, message = "the minimum value is 0")
     private double minScore;
-    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
 
 }

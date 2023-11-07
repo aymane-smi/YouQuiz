@@ -25,7 +25,7 @@ public class AssignQuiz implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="Student_id")
     private Student student;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="Quiz_id")
     private Quiz quiz;
     @OneToMany(mappedBy = "assignQuiz", fetch = FetchType.LAZY)

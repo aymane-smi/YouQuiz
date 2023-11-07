@@ -27,14 +27,14 @@ public class Question implements Serializable {
     private QuestionType type;
     @Column(nullable = false)
     private double totalScore;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Validation> validations;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> medias;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Level_id")
     private Level level;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TempQuiz> tempoQuiz;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Subject_id")

@@ -8,9 +8,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class SubjectDTO {
+public class SubjectResponseDTO {
     private long id;
     @NotBlank(message = "title of the subject is required")
     private String title;
-    private long parent_id;
+    private SubjectResponseDTO parent;
+    private List<SubjectDTO> childs;
 }
