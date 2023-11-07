@@ -17,8 +17,6 @@ public class ValidationException {
     public Map<String, String> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        System.out.println(ex.getMessage());
-        System.out.println("error size:"+ex.getBindingResult().getAllErrors().size());;
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             System.out.println(error.toString());
             String fieldName = ((FieldError) error).getField();

@@ -8,6 +8,6 @@ public class NotFoundException extends Exception{
     }
 
     public NotFoundException(){
-        super("invalid id for the level");
+        super("invalid id for the element");
     }
 }
