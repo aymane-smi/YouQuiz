@@ -6,5 +6,8 @@ import com.youquiz.youquiz.Exceptions.NotFoundException;
 
 public interface ISubjectService {
     SubjectDTO createSubject(SubjectDTO subjectDTO);
-    SubjectResponseDTO findById(Long id) throws NotFoundException;
+    SubjectResponseDTO findById(long id) throws NotFoundException;
+
+    void removeById(long id) throws NotFoundException;
+    SubjectDTO updateSubject(long id, SubjectDTO subjectDTO) throws NotFoundException;
 }

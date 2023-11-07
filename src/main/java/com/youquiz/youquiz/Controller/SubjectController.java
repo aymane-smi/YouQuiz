@@ -46,4 +46,40 @@ public class SubjectController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            subjectService.removeById(id);
+            message.put("message", "subject deleted");
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(NotFoundException e){
+            message.put("message", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            message.put("message", "cannot delete subject");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id, @Valid @RequestBody SubjectDTO subjectDTO){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            SubjectDTO subject = subjectService.updateSubject(id, subjectDTO);
+            if(subject == null)
+                throw new Exception("there is not value to be updated");
+            message.put("message", "subject updated");
+            message.put("subject", subject);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(NotFoundException e){
+            message.put("message", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            message.put("message", "cannot update subject");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
 }

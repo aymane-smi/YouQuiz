@@ -1,9 +1,7 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.LevelDTO;
 import com.youquiz.youquiz.DTO.SubjectDTO;
 import com.youquiz.youquiz.DTO.SubjectResponseDTO;
-import com.youquiz.youquiz.Entity.Level;
 import com.youquiz.youquiz.Entity.Subject;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.SubjectRepository;
@@ -30,12 +28,42 @@ public class SubjectService implements ISubjectService {
     }
 
     @Override
-    public SubjectResponseDTO findById(Long id) throws NotFoundException {
+    public SubjectResponseDTO findById(long id) throws NotFoundException {
         if(id <= 0)
             throw new NotFoundException();
         Subject subject = subjectRepository.findById(id).get();
         if(subject == null)
             throw new NotFoundException("subject doesn't exist");
         return modelMapper.map(subject, SubjectResponseDTO.class);
+    }
+    @Override
+    public void removeById(long id) throws NotFoundException {
+        if(id <= 0)
+            throw new NotFoundException();
+        subjectRepository.deleteById(id);
+    }
+
+    @Override
+    public SubjectDTO updateSubject(long id, SubjectDTO subjectDTO) throws NotFoundException {
+        boolean key = false;
+        if(id <= 0)
+            throw new NotFoundException();
+        Subject subject = subjectRepository.findById(id).get();
+        if(subjectDTO.getParent_id() != 0){
+            subject.setParent(
+                    subjectRepository.findById(subjectDTO.getParent_id()).get()
+            );
+            key = true;
+        }
+        if(subjectDTO.getTitle().isEmpty() == false){
+            subject.setTitle(
+                    subjectDTO.getTitle()
+            );
+            key = true;
+        }
+        if(key == true)
+            return modelMapper.map(subjectRepository.save(subject), SubjectDTO.class);
+        else
+            return null;
     }
 }
