@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.DTO;
+package com.youquiz.youquiz.DTO.Question;
 
 import com.youquiz.youquiz.Enum.QuestionType;
 import jakarta.validation.constraints.Min;

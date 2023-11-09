@@ -1,10 +1,7 @@
 package com.youquiz.youquiz.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Immutable;
 
 import java.io.Serializable;
@@ -13,7 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "validation")
 @Immutable
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Validation implements Serializable {

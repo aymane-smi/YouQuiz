@@ -1,6 +1,7 @@
 package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionWithoutDetailsDTO;
 import com.youquiz.youquiz.Entity.Level;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.LevelRepository;
@@ -46,4 +47,13 @@ public class LevelService implements ILevelService {
     public List<LevelDTO> findAll() {
         return Arrays.asList(modelMapper.map(levelRepository.findAll(), LevelDTO[].class));
     }
+
+    @Override
+    public List<QuestionWithoutDetailsDTO> findLevelQuestionById(long id) throws NotFoundException {
+        if(modelMapper.map(levelRepository.findById(id), LevelDTO.class) == null)
+            throw new NotFoundException();
+        System.out.println("size:"+levelRepository.findById(id).get().getQuestions());
+        return Arrays.asList(modelMapper.map(levelRepository.findById(id).get().getQuestions(), QuestionWithoutDetailsDTO[].class));
+    }
+
 }
