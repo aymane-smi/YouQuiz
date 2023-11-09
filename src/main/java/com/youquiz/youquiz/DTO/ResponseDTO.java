@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ResponseDTO {
+    private long id;
     @NotBlank(message = "the response require a non empty string")
     private String response;
     @Min(value = 0, message = "the point can't be less then 0")
