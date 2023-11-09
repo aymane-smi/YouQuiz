@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.Controller;
 
-import com.youquiz.youquiz.DTO.QuestionDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.Service.IMPL.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

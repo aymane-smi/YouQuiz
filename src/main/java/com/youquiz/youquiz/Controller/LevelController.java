@@ -26,7 +26,7 @@ public class LevelController {
             message.put("level", levelService.save(level));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            message.put("message", "cannot create a new level");
+            message.put("error", "cannot create a new level");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
@@ -38,7 +38,7 @@ public class LevelController {
             message.put("level", levelService.update(id, level));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("message", "cannot update the level");
+            message.put("error", "cannot update the level");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -50,10 +50,26 @@ public class LevelController {
             message.put("level", levelService.findById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("message", e.getMessage());
+            message.put("error", e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }catch (Exception e){
-            message.put("message", "cannot find the level");
+            message.put("error", "cannot find the level");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{id}/questions")
+    public ResponseEntity<Map<String, Object>> findLevelQuestionById(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            System.out.println("started");
+            message.put("questions", levelService.findLevelQuestionById(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(NotFoundException e){
+            message.put("error", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            message.put("error", "cannot find the level");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
@@ -64,7 +80,7 @@ public class LevelController {
             message.put("levels", levelService.findAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("message", "cannot find all the levels");
+            message.put("error", "cannot find all the levels");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }

@@ -1,7 +1,7 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.QuestionDTO;
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Enum.QuestionType;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
