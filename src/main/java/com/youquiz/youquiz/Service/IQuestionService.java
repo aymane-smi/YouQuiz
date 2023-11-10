@@ -1,7 +1,7 @@
 package com.youquiz.youquiz.Service;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
-import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 
 public interface IQuestionService{

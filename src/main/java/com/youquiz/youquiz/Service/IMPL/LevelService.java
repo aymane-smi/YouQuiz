@@ -50,7 +50,7 @@ public class LevelService implements ILevelService {
 
     @Override
     public List<QuestionWithoutDetailsDTO> findLevelQuestionById(long id) throws NotFoundException {
-        if(modelMapper.map(levelRepository.findById(id), LevelDTO.class) == null)
+        if(id <= 0|| modelMapper.map(levelRepository.findById(id), LevelDTO.class) == null)
             throw new NotFoundException();
         System.out.println("size:"+levelRepository.findById(id).get().getQuestions());
         return Arrays.asList(modelMapper.map(levelRepository.findById(id).get().getQuestions(), QuestionWithoutDetailsDTO[].class));

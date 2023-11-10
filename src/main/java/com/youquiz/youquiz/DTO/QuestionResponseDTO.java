@@ -1,11 +1,8 @@
-package com.youquiz.youquiz.DTO.Question;
+package com.youquiz.youquiz.DTO;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
-import com.youquiz.youquiz.DTO.SubjectDTO;
+import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
 import com.youquiz.youquiz.Enum.QuestionType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

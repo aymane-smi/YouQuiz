@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.DTO;
+package com.youquiz.youquiz.DTO.Subject;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -8,10 +8,9 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class SubjectResponseDTO {
+public class SubjectDTO {
     private long id;
     @NotBlank(message = "title of the subject is required")
     private String title;
-    private SubjectResponseDTO parent;
-    private List<SubjectDTO> childs;
+    private long parent_id;
 }

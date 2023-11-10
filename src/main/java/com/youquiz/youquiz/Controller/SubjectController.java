@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.Controller;
 
-import com.youquiz.youquiz.DTO.SubjectDTO;
+import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.SubjectService;
 import jakarta.validation.Valid;
@@ -25,24 +25,40 @@ public class SubjectController {
             message.put("subject", subjectService.createSubject(subjectDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            message.put("message", "cannot create a new subject");
+            message.put("error", "cannot create a new subject");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> createSubject(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> findSubject(@PathVariable long id){
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "subject found");
             message.put("subject", subjectService.findById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("message", e.getMessage());
+            message.put("error", e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            message.put("message", "cannot create a new subject");
+            message.put("error", "cannot create a new subject");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/{id}/questions")
+    public ResponseEntity<Map<String, Object>> findSubjectQuestionById(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "questions found");
+            message.put("questions", subjectService.findSubjectQuestionById(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(NotFoundException e){
+            message.put("error", e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            message.put("error", "cannot find any question subject");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
@@ -55,11 +71,11 @@ public class SubjectController {
             message.put("message", "subject deleted");
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("message", e.getMessage());
+            message.put("error", e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            message.put("message", "cannot delete subject");
+            message.put("error", "cannot delete subject");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
@@ -74,11 +90,25 @@ public class SubjectController {
             message.put("subject", subject);
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("message", e.getMessage());
+            message.put("error", e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            message.put("message", "cannot update subject");
+            message.put("error", "cannot update subject");
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> findAllSubject(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "subjects found");
+            message.put("subjects", subjectService.findAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            message.put("error", "cannot find any subject");
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
