@@ -3,6 +3,8 @@ package com.youquiz.youquiz.Service.IMPL;
 import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.ResponseDTO;
+import com.youquiz.youquiz.DTO.ValidationDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Enum.QuestionType;
@@ -10,11 +12,13 @@ import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.LevelRepository;
 import com.youquiz.youquiz.Repository.QuestionRepository;
 import com.youquiz.youquiz.Repository.SubjectRepository;
+import com.youquiz.youquiz.Repository.ValidationRepository;
 import com.youquiz.youquiz.Service.IQuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +32,8 @@ public class QuestionService implements IQuestionService{
     private SubjectRepository subjectRepository;
     @Autowired
     private LevelRepository levelRepository;
+    @Autowired
+    private ValidationRepository validationRepository;
 
     @Override
     public QuestionResponseDTO create(QuestionDTO questionDTO) {
@@ -108,6 +114,18 @@ public class QuestionService implements IQuestionService{
     @Override
     public List<QuestionResponseDTO> findAll() {
         return Arrays.asList(modelMapper.map(questionRepository.findAll(), QuestionResponseDTO[].class));
+    }
+
+    @Override
+    public List<ResponseDTO> findResponses(long id) throws NotFoundException {
+        Question question = questionRepository.findById(id).get();
+        if(id <= 0 || question == null)
+            throw new NotFoundException();
+        List<ResponseDTO> responses = new ArrayList<>();
+        question.getValidations().forEach((v)->{
+            responses.add(modelMapper.map(v.getResponse(), ResponseDTO.class));
+        });
+        return responses;
     }
 
 

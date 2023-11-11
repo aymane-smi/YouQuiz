@@ -62,7 +62,6 @@ public class LevelController {
     public ResponseEntity<Map<String, Object>> findLevelQuestionById(@PathVariable long id){
         Map<String, Object> message = new HashMap<>();
         try{
-            System.out.println("started");
             message.put("questions", levelService.findLevelQuestionById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
@@ -73,7 +72,7 @@ public class LevelController {
             return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<Map<String, Object>> findLevels(){
         Map<String, Object> message = new HashMap<>();
         try{

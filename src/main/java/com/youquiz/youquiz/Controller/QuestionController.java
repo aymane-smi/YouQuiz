@@ -25,7 +25,6 @@ public class QuestionController {
             message.put("question", questionService.create(questionDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            System.out.println(e.getMessage());
             message.put("message", "cannot create a question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -39,7 +38,6 @@ public class QuestionController {
             message.put("question", questionService.update(id, questionDTO));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
-            System.out.println("error:"+e.getMessage());
             message.put("message", "cannot update this question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -53,7 +51,6 @@ public class QuestionController {
             questionService.delete(id);
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
-            System.out.println("error:"+e.getMessage());
             message.put("message", "cannot delete this question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -67,8 +64,20 @@ public class QuestionController {
             message.put("medias", questionService.findQuestionMedia(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
-            System.out.println("error:"+e.getMessage());
             message.put("message", "cannot found any media");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping("/{id}/responses")
+    public ResponseEntity<Map<String, Object>> findQuestionResponse(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "responses found");
+            message.put("responses", questionService.findResponses(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            message.put("message", "cannot found any response");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }
@@ -81,7 +90,6 @@ public class QuestionController {
             message.put("medias", questionService.findAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
-            System.out.println("error:"+e.getMessage());
             message.put("message", "cannot found any question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }

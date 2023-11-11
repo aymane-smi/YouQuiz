@@ -6,4 +6,5 @@ import com.youquiz.youquiz.Entity.Response;
 
 public interface IValidationService {
     ValidationDTO create(Response response, Question question, double point);
+
 }
