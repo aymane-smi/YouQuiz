@@ -1,11 +1,14 @@
 package com.youquiz.youquiz.DTO.Question;
 
+import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.Enum.QuestionType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -23,4 +26,5 @@ public class QuestionDTO {
     private double totalScore;
     private long subject_id;
     private long level_id;
+    private List<MediaDTO> medias;
 }

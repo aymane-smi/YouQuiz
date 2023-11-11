@@ -21,6 +21,6 @@ public class Media implements Serializable {
     @Enumerated(EnumType.STRING)
     private MediaType type;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Question_id")
+    @JoinColumn(name = "Question_id", nullable = false)
     private Question question;
 }

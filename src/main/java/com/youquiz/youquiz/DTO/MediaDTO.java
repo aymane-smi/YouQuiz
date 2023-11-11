@@ -1,5 +1,6 @@
 package com.youquiz.youquiz.DTO;
 
+import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.Enum.MediaType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;

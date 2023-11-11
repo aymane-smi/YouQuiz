@@ -25,6 +25,7 @@ public class QuestionController {
             message.put("question", questionService.create(questionDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
+            System.out.println(e.getMessage());
             message.put("message", "cannot create a question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
@@ -54,6 +55,34 @@ public class QuestionController {
         }catch(Exception e){
             System.out.println("error:"+e.getMessage());
             message.put("message", "cannot delete this question");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping("/{id}/medias")
+    public ResponseEntity<Map<String, Object>> findQuestionMedia(@PathVariable long id){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "medias found");
+            message.put("medias", questionService.findQuestionMedia(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println("error:"+e.getMessage());
+            message.put("message", "cannot found any media");
+            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> findAllQuestion(){
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "questions found");
+            message.put("medias", questionService.findAll());
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println("error:"+e.getMessage());
+            message.put("message", "cannot found any question");
             return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
         }
     }

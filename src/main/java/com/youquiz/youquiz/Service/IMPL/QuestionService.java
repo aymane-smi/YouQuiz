@@ -1,7 +1,9 @@
 package com.youquiz.youquiz.Service.IMPL;
 
+import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Enum.QuestionType;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
@@ -12,6 +14,9 @@ import com.youquiz.youquiz.Service.IQuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class QuestionService implements IQuestionService{
@@ -36,6 +41,15 @@ public class QuestionService implements IQuestionService{
         question.setType(
                 QuestionType.valueOf(questionDTO.getType())
         );
+        if(questionDTO.getMedias().size() > 0){
+            List<Media> medias = Arrays.asList(modelMapper.map(questionDTO.getMedias(), Media[].class));
+            for(int i=0;i<medias.size();i++){
+                Media media = medias.get(i);
+                media.setQuestion(question);
+                medias.set(i, media);
+            }
+            question.setMedias(medias);
+        }
         return modelMapper.map(
                 questionRepository.save(question), QuestionResponseDTO.class
         );
@@ -82,5 +96,19 @@ public class QuestionService implements IQuestionService{
             throw new NotFoundException();
         questionRepository.deleteById(id);
     }
+
+    @Override
+    public List<MediaDTO> findQuestionMedia(long id) throws NotFoundException{
+        Question question = questionRepository.findById(id).get();
+        if(id <= 0 || question == null)
+            throw new NotFoundException();
+        return Arrays.asList(modelMapper.map(question.getMedias(), MediaDTO[].class));
+    }
+
+    @Override
+    public List<QuestionResponseDTO> findAll() {
+        return Arrays.asList(modelMapper.map(questionRepository.findAll(), QuestionResponseDTO[].class));
+    }
+
 
 }
