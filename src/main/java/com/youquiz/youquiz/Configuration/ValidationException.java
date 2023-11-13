@@ -1,5 +1,6 @@
 package com.youquiz.youquiz.Configuration;
 
+import com.youquiz.youquiz.Exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,11 +19,18 @@ public class ValidationException {
             MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            System.out.println(error.toString());
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleNotFoundExceptions(NotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
         return errors;
     }
 }
