@@ -19,68 +19,59 @@ public class LevelController {
     @Autowired
     private LevelService levelService;
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createLevel(@Valid @RequestBody LevelDTO level){
+    public ResponseEntity<Map<String, Object>> createLevel(@Valid @RequestBody LevelDTO level) throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "created");
             message.put("level", levelService.save(level));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            message.put("error", "cannot create a new level");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot create a new level");
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> editLevel(@PathVariable long id, @Valid @RequestBody LevelDTO level){
+    public ResponseEntity<Map<String, Object>> editLevel(@PathVariable long id, @Valid @RequestBody LevelDTO level) throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "updated");
             message.put("level", levelService.update(id, level));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("error", "cannot update the level");
-            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+            throw new Exception("cannot update the level");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> findLevelById(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> findLevelById(@PathVariable long id) throws NotFoundException{
         Map<String, Object> message = new HashMap<>();
-        try{
+        try {
             message.put("level", levelService.findById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
-        }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }catch (Exception e){
-            message.put("error", "cannot find the level");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }
     }
 
     @GetMapping("/{id}/questions")
-    public ResponseEntity<Map<String, Object>> findLevelQuestionById(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> findLevelQuestionById(@PathVariable long id)throws Exception, NotFoundException{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("questions", levelService.findLevelQuestionById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }catch (Exception e){
-            message.put("error", "cannot find the level");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot find the level");
         }
     }
     @GetMapping
-    public ResponseEntity<Map<String, Object>> findLevels(){
+    public ResponseEntity<Map<String, Object>> findLevels() throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("levels", levelService.findAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
-            message.put("error", "cannot find all the levels");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot find all the levels");
         }
     }
 }

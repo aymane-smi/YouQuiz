@@ -18,69 +18,59 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createSubject(@Valid @RequestBody SubjectDTO subjectDTO){
+    public ResponseEntity<Map<String, Object>> createSubject(@Valid @RequestBody SubjectDTO subjectDTO)throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "subject created");
             message.put("subject", subjectService.createSubject(subjectDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            message.put("error", "cannot create a new subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot create a new subject");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> findSubject(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> findSubject(@PathVariable long id)throws NotFoundException, Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "subject found");
             message.put("subject", subjectService.findById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            message.put("error", "cannot create a new subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot create a new subject");
         }
     }
     @GetMapping("/{id}/questions")
-    public ResponseEntity<Map<String, Object>> findSubjectQuestionById(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> findSubjectQuestionById(@PathVariable long id)throws NotFoundException, Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "questions found");
             message.put("questions", subjectService.findSubjectQuestionById(id));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            message.put("error", "cannot find any question subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot find any question subject");
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id){
+    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id)throws Exception, NotFoundException{
         Map<String, Object> message = new HashMap<>();
         try{
             subjectService.removeById(id);
             message.put("message", "subject deleted");
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception(e.getMessage());
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            message.put("error", "cannot delete subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot delete subject");
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id, @Valid @RequestBody SubjectDTO subjectDTO){
+    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id, @Valid @RequestBody SubjectDTO subjectDTO)throws NotFoundException, Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             SubjectDTO subject = subjectService.updateSubject(id, subjectDTO);
@@ -90,26 +80,21 @@ public class SubjectController {
             message.put("subject", subject);
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(NotFoundException e){
-            message.put("error", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            message.put("error", "cannot update subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot update subject");
         }
     }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> findAllSubject(){
+    public ResponseEntity<Map<String, Object>> findAllSubject()throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "subjects found");
             message.put("subjects", subjectService.findAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            message.put("error", "cannot find any subject");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot find any subject");
         }
     }
 }

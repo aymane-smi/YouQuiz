@@ -20,15 +20,14 @@ public class Mediacontroller {
     @Autowired
     private MediaService mediaService;
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createMedia(@Valid @RequestBody MediaDTO mediaDTO){
+    public ResponseEntity<Map<String, Object>> createMedia(@Valid @RequestBody MediaDTO mediaDTO)throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "media created");
             message.put("media", mediaService.create(mediaDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
-            message.put("error", "cannot create the media for the question");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot create the media for the question");
         }
     }
 }

@@ -27,8 +27,15 @@ public class ValidationException {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(NotFoundException.class)
     public Map<String, String> handleNotFoundExceptions(NotFoundException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(Exception.class)
+    public Map<String, String> handleExceptions(Exception ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;

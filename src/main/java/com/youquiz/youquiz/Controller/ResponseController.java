@@ -18,31 +18,28 @@ public class ResponseController {
     @Autowired
     private ResponseService responseService;
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createResponse(@Valid @RequestBody ResponseDTO responseDTO){
+    public ResponseEntity<Map<String, Object>> createResponse(@Valid @RequestBody ResponseDTO responseDTO)throws Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "response created");
             message.put("response", responseService.create(responseDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
-            message.put("message", "cannot create a response");
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new Exception("cannot create a response");
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateResponse(@PathVariable long id, @Valid @RequestBody ResponseDTO responseDTO){
+    public ResponseEntity<Map<String, Object>> updateResponse(@PathVariable long id, @Valid @RequestBody ResponseDTO responseDTO)throws Exception, NotFoundException{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "response updated");
             message.put("response", responseService.update(id, responseDTO));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (NotFoundException e){
-            message.put("message", e.getMessage());
-            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+            throw new NotFoundException(e.getMessage());
         }catch (Exception e){
-            message.put("message", "cannot create a response");
-            return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+            throw new Exception("cannot create a response");
         }
     }
 }

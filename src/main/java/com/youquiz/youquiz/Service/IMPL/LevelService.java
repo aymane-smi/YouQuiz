@@ -2,6 +2,7 @@ package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionWithoutDetailsDTO;
+import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.Entity.Level;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.LevelRepository;
