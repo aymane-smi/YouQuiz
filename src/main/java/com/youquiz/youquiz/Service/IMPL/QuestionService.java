@@ -7,12 +7,12 @@ import com.youquiz.youquiz.DTO.ResponseDTO;
 import com.youquiz.youquiz.DTO.ValidationDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
+import com.youquiz.youquiz.Entity.Quiz;
+import com.youquiz.youquiz.Entity.TempQuiz;
 import com.youquiz.youquiz.Enum.QuestionType;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
-import com.youquiz.youquiz.Repository.LevelRepository;
-import com.youquiz.youquiz.Repository.QuestionRepository;
-import com.youquiz.youquiz.Repository.SubjectRepository;
-import com.youquiz.youquiz.Repository.ValidationRepository;
+import com.youquiz.youquiz.Rename.TempID;
+import com.youquiz.youquiz.Repository.*;
 import com.youquiz.youquiz.Service.IQuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +34,13 @@ public class QuestionService implements IQuestionService{
     private LevelRepository levelRepository;
     @Autowired
     private ValidationRepository validationRepository;
+    @Autowired
+    private TempQuizRepository tempQuizRepository;
+    @Autowired
+    private QuizRepository quizRepository;
 
     @Override
-    public QuestionResponseDTO create(QuestionDTO questionDTO) {
+    public QuestionResponseDTO create(QuestionDTO questionDTO)throws NotFoundException {
         Question question = modelMapper.map(questionDTO, Question.class);
         question.setSubject(
                 subjectRepository.findById(questionDTO.getSubject_id()).get()
@@ -56,8 +60,18 @@ public class QuestionService implements IQuestionService{
             }
             question.setMedias(medias);
         }
+        Question afterSave = questionRepository.save(question);
+        if(questionDTO.getId() <= -1 || quizRepository.existsById(questionDTO.getQuiz_id()) == false)
+            throw new NotFoundException("quiz id doesn't existe");
+        Quiz quiz = quizRepository.findById(questionDTO.getQuiz_id()).get();
+        tempQuizRepository.save(new TempQuiz(
+                new TempID(quiz.getId(), afterSave.getId()),
+                questionDTO.getDuration(),
+                quiz,
+                question
+        ));
         return modelMapper.map(
-                questionRepository.save(question), QuestionResponseDTO.class
+                afterSave, QuestionResponseDTO.class
         );
     }
 
@@ -98,7 +112,7 @@ public class QuestionService implements IQuestionService{
 
     @Override
     public void delete(long id) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || questionRepository.existsById(id) == false)
             throw new NotFoundException();
         questionRepository.deleteById(id);
     }

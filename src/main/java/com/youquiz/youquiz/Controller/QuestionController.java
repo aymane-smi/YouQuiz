@@ -1,7 +1,10 @@
 package com.youquiz.youquiz.Controller;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
+import com.youquiz.youquiz.DTO.TempoQuizDTO;
+import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.QuestionService;
+import com.youquiz.youquiz.Service.IMPL.TempoQuizService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +19,18 @@ import java.util.Map;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private TempoQuizService tempoQuizService;
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createQuestion(@Valid @RequestBody QuestionDTO questionDTO)throws Exception{
+    public ResponseEntity<Map<String, Object>> createQuestion(@Valid @RequestBody QuestionDTO questionDTO)throws Exception, NotFoundException {
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "question created");
             message.put("question", questionService.create(questionDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
+            System.out.println(e.getMessage());
             throw new Exception("cannot create a question");
         }
     }
@@ -87,5 +93,14 @@ public class QuestionController {
         }catch(Exception e){
             throw new Exception("cannot found any question");
         }
+    }
+
+    @PostMapping("/{id}/addQuiz")
+    public ResponseEntity<Map<String, Object>> addQuestiontoQuiz(@PathVariable long id, @Valid @RequestBody TempoQuizDTO tempoQuizDTO)throws Exception, NotFoundException{
+        Map<String, Object> message = new HashMap<>();
+            tempoQuizDTO.setQuestion_id(id);
+            message.put("message", "question assigned to quiz");
+            tempoQuizService.create(tempoQuizDTO);
+            return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

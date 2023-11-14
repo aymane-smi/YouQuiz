@@ -37,6 +37,7 @@ public class LevelController {
             message.put("level", levelService.update(id, level));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             throw new Exception("cannot update the level");
         }
     }
