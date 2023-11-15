@@ -14,4 +14,5 @@ public class MediaDTO {
     private int id;
     private String name;
     private MediaType type;
+    private QuestionDTO questionDTO;
 }

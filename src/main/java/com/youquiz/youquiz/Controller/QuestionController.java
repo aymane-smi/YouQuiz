@@ -103,4 +103,12 @@ public class QuestionController {
             tempoQuizService.create(tempoQuizDTO);
             return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/detachQuiz/{quiz_id}")
+    public ResponseEntity<Map<String, Object>> detachQuestiontoQuiz(@PathVariable long id, @PathVariable long quiz_id)throws Exception, NotFoundException{
+        Map<String, Object> message = new HashMap<>();
+        questionService.detachQuiz(id, quiz_id);
+        message.put("message", "question detached to assigned quiz");
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

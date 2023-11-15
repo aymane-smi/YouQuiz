@@ -4,7 +4,6 @@ import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.ResponseDTO;
-import com.youquiz.youquiz.DTO.ValidationDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Entity.Quiz;
@@ -142,5 +141,11 @@ public class QuestionService implements IQuestionService{
         return responses;
     }
 
-
+    @Override
+    public void detachQuiz(long id, long quiz_id)throws NotFoundException, Exception{
+        TempID tempId= new TempID(quiz_id, id);
+        if(!tempQuizRepository.existsById(tempId))
+            throw new NotFoundException();
+        tempQuizRepository.deleteById(tempId);
+    }
 }

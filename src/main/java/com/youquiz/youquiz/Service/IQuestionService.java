@@ -15,4 +15,6 @@ public interface IQuestionService{
     List<MediaDTO> findQuestionMedia(long id) throws NotFoundException;
     List<QuestionResponseDTO> findAll();
     List<ResponseDTO> findResponses(long id) throws NotFoundException;
+
+    void detachQuiz(long id, long quiz_id)throws NotFoundException, Exception;
 }
