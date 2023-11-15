@@ -4,6 +4,7 @@ import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.ResponseDTO;
+import com.youquiz.youquiz.DTO.TempoQuizDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Entity.Quiz;
@@ -148,4 +149,16 @@ public class QuestionService implements IQuestionService{
             throw new NotFoundException();
         tempQuizRepository.deleteById(tempId);
     }
+    @Override
+    public TempoQuizDTO PatchQuiz(long id, TempoQuizDTO tempoQuizDTO)throws NotFoundException, Exception{
+        TempID tempId= new TempID(tempoQuizDTO.getQuiz_id(), id);
+        if(!tempQuizRepository.existsById(tempId))
+            throw new NotFoundException();
+        TempQuiz tempQuiz = tempQuizRepository.findById(tempId).get();
+        tempQuiz.setTime(tempoQuizDTO.getDuration());
+        tempoQuizDTO.setQuestion_id(id);
+        tempQuizRepository.save(tempQuiz);
+        return tempoQuizDTO;
+    }
+
 }

@@ -111,4 +111,12 @@ public class QuestionController {
         message.put("message", "question detached to assigned quiz");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}/editTime")
+    public ResponseEntity<Map<String, Object>> patchQuestionTime(@PathVariable long id, @Valid @RequestBody TempoQuizDTO tempoQuizDTO)throws Exception, NotFoundException{
+        Map<String, Object> message = new HashMap<>();
+        message.put("message", "question time changed");
+        message.put("tempoQuiz", questionService.PatchQuiz(id, tempoQuizDTO));
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
