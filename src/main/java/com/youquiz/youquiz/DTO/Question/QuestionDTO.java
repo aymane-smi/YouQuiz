@@ -24,7 +24,11 @@ public class QuestionDTO {
     private String type;
     @Min(value = 0, message = "total score can't be less then")
     private double totalScore;
+    @NotNull(message = "question time must can't be empty")
+    @Min(value = 10, message = "duration can't be under 10 second")
+    private int duration;
     private long subject_id;
     private long level_id;
+    private long quiz_id;
     private List<MediaDTO> medias;
 }

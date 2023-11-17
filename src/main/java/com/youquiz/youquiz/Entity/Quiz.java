@@ -1,6 +1,8 @@
 package com.youquiz.youquiz.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +27,10 @@ public class Quiz implements Serializable {
     private int chanceNbr;
     @Column(nullable = false)
     private String remark;
+    @Column(name = "duration", nullable = false)
+    @NotNull(message = "duration is required")
+    @Min(value = 30, message = "the minimum duration of a quiz is 30 min")
+    private Integer durationInMinutes;
     @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "AssignQuiz_id")
     private AssignQuiz assignQuiz;
