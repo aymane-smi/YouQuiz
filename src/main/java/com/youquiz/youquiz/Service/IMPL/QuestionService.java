@@ -77,7 +77,7 @@ public class QuestionService implements IQuestionService{
 
     @Override
     public QuestionResponseDTO update(long id, QuestionDTO questionDTO) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || questionRepository.findById(id).get() == null)
             throw new NotFoundException();
         Question question = questionRepository.findById(id).get();
         if(questionDTO.getQuestionText().isEmpty() == false)
@@ -159,6 +159,11 @@ public class QuestionService implements IQuestionService{
         tempoQuizDTO.setQuestion_id(id);
         tempQuizRepository.save(tempQuiz);
         return tempoQuizDTO;
+    }
+    public QuestionResponseDTO findbydId(long id) throws NotFoundException, Exception{
+        if(id <= 0 || questionRepository.findById(id) == null)
+            throw new NotFoundException();
+        return modelMapper.map(questionRepository.findById(id), QuestionResponseDTO.class);
     }
 
 }

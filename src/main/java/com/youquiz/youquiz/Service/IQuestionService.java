@@ -20,4 +20,6 @@ public interface IQuestionService{
     void detachQuiz(long id, long quiz_id)throws NotFoundException, Exception;
 
     TempoQuizDTO PatchQuiz(long id, TempoQuizDTO tempoQuizDTO)throws NotFoundException, Exception;
+
+    QuestionResponseDTO findbydId(long id) throws NotFoundException, Exception;
 }

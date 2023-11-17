@@ -59,6 +59,18 @@ public class QuestionController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> findQuestion(@PathVariable long id)throws Exception, NotFoundException{
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "question founded");
+            message.put("question", questionService.findbydId(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            throw new Exception("cannot found this question");
+        }
+    }
+
     @GetMapping("/{id}/medias")
     public ResponseEntity<Map<String, Object>> findQuestionMedia(@PathVariable long id)throws Exception{
         Map<String, Object> message = new HashMap<>();

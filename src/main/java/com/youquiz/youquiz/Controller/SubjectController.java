@@ -70,7 +70,7 @@ public class SubjectController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteSubject(@PathVariable long id, @Valid @RequestBody SubjectDTO subjectDTO)throws NotFoundException, Exception{
+    public ResponseEntity<Map<String, Object>> editSubject(@PathVariable long id, @Valid @RequestBody SubjectDTO subjectDTO)throws NotFoundException, Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             SubjectDTO subject = subjectService.updateSubject(id, subjectDTO);

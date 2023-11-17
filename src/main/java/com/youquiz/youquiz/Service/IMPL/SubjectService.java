@@ -44,7 +44,7 @@ public class SubjectService implements ISubjectService {
     }
     @Override
     public void removeById(long id) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || subjectRepository.findById(id).get() == null)
             throw new NotFoundException();
         subjectRepository.deleteById(id);
     }
@@ -52,7 +52,7 @@ public class SubjectService implements ISubjectService {
     @Override
     public SubjectDTO updateSubject(long id, SubjectDTO subjectDTO) throws NotFoundException {
         boolean key = false;
-        if(id <= 0)
+        if(id <= 0 || subjectRepository.findById(id).get() == null)
             throw new NotFoundException();
         Subject subject = subjectRepository.findById(id).get();
         if(subjectDTO.getParent_id() != 0){
