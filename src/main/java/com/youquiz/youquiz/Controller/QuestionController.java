@@ -1,6 +1,7 @@
 package com.youquiz.youquiz.Controller;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
+import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class QuestionController {
             message.put("question", questionService.create(questionDTO));
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch(Exception e){
+            System.out.println(e.getMessage());
             throw new Exception("cannot create a question");
         }
     }
@@ -50,6 +52,18 @@ public class QuestionController {
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
             throw new Exception("cannot delete this question");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> findQuestion(@PathVariable long id)throws Exception, NotFoundException{
+        Map<String, Object> message = new HashMap<>();
+        try{
+            message.put("message", "question founded");
+            message.put("question", questionService.findbydId(id));
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }catch(Exception e){
+            throw new Exception("cannot found this question");
         }
     }
 

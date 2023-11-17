@@ -2,7 +2,6 @@ package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionWithoutDetailsDTO;
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.Entity.Level;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.LevelRepository;
@@ -29,10 +28,13 @@ public class LevelService implements ILevelService {
     }
 
     @Override
-    public LevelDTO update(long id, LevelDTO levelDTO) {
-        Level level = modelMapper.map(levelDTO, Level.class);
-        level.setId(id);
-        System.out.println("id:"+level.getId());
+    public LevelDTO update(long id, LevelDTO levelDTO) throws NotFoundException{
+        Level level = levelRepository.findById(id).get();
+        if(id <= 0 || level == null)
+            throw new NotFoundException();
+        level.setDescription(levelDTO.getDescription());
+        level.setMaxScore(levelDTO.getMaxScore());
+        level.setMinScore(level.getMinScore());
         level = levelRepository.save(level);
         return modelMapper.map(level, LevelDTO.class);
     }

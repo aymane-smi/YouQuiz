@@ -30,13 +30,14 @@ public class LevelController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> editLevel(@PathVariable long id, @Valid @RequestBody LevelDTO level) throws Exception{
+    public ResponseEntity<Map<String, Object>> editLevel(@PathVariable long id, @Valid @RequestBody LevelDTO level) throws NotFoundException, Exception{
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "updated");
             message.put("level", levelService.update(id, level));
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             throw new Exception("cannot update the level");
         }
     }

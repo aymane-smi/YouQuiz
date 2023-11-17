@@ -15,4 +15,6 @@ public interface IQuestionService{
     List<MediaDTO> findQuestionMedia(long id) throws NotFoundException;
     List<QuestionResponseDTO> findAll();
     List<ResponseDTO> findResponses(long id) throws NotFoundException;
+
+    QuestionResponseDTO findbydId(long id) throws NotFoundException, Exception;
 }

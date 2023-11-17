@@ -4,7 +4,6 @@ import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
 import com.youquiz.youquiz.DTO.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.ResponseDTO;
-import com.youquiz.youquiz.DTO.ValidationDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Enum.QuestionType;
@@ -63,7 +62,7 @@ public class QuestionService implements IQuestionService{
 
     @Override
     public QuestionResponseDTO update(long id, QuestionDTO questionDTO) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || questionRepository.findById(id).get() == null)
             throw new NotFoundException();
         Question question = questionRepository.findById(id).get();
         if(questionDTO.getQuestionText().isEmpty() == false)
@@ -126,6 +125,13 @@ public class QuestionService implements IQuestionService{
             responses.add(modelMapper.map(v.getResponse(), ResponseDTO.class));
         });
         return responses;
+    }
+
+    @Override
+    public QuestionResponseDTO findbydId(long id) throws NotFoundException, Exception{
+        if(id <= 0 || questionRepository.findById(id) == null)
+            throw new NotFoundException();
+        return modelMapper.map(questionRepository.findById(id), QuestionResponseDTO.class);
     }
 
 
