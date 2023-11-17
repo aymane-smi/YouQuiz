@@ -31,9 +31,9 @@ public class Quiz implements Serializable {
     @NotNull(message = "duration is required")
     @Min(value = 30, message = "the minimum duration of a quiz is 30 min")
     private Integer durationInMinutes;
-    @OneToOne(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "AssignQuiz_id")
-    private AssignQuiz assignQuiz;
+    private List<AssignQuiz> assignQuiz;
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TempQuiz> tempoQuiz;
     @ManyToOne(fetch = FetchType.LAZY)

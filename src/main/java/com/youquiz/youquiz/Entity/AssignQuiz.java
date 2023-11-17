@@ -1,10 +1,14 @@
 package com.youquiz.youquiz.Entity;
 
+import com.youquiz.youquiz.Enum.Result;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,18 +20,38 @@ public class AssignQuiz implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = false)
-    private double score;
-    @Column(nullable = false)
-    private int played;
-    @Column(nullable = false)
-    private double result;
+
+    @Column
+    @Min(value = 0, message = "score can't be negative")
+    private Double score;
+
+    @Column
+    @NotNull(message = "played can't be null")
+    private Integer played;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Result result;
+
+    @Column
+    private String reason;
+
+    @Column
+    @NotNull(message = "debut date can't be null")
+    private LocalDateTime debutDate;
+
+    @Column
+    @NotNull(message = "debut date can't be null")
+    private LocalDateTime endDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="Student_id")
+    @JoinColumn(name = "student_id")
     private Student student;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="Quiz_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
+
     @OneToMany(mappedBy = "assignQuiz", fetch = FetchType.LAZY)
-    private List<Answer> ansewrs;
+    private List<Answer> answers;
 }

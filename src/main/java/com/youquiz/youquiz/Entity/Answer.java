@@ -13,7 +13,6 @@ public class Answer implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    private int played;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Assign_id")
     private AssignQuiz assignQuiz;

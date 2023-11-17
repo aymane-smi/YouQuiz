@@ -1,9 +1,9 @@
 package com.youquiz.youquiz.Repository;
 
-import com.youquiz.youquiz.Entity.Response;
+import com.youquiz.youquiz.Entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ResponseRepository extends JpaRepository<Response, Long> {
+public interface studentRepository extends JpaRepository<Student, Long> {
 }
