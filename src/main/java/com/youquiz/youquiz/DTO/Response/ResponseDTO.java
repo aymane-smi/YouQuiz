@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.DTO;
+package com.youquiz.youquiz.DTO.Response;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;

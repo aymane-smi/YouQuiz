@@ -1,11 +1,9 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.ResponseDTO;
 import com.youquiz.youquiz.DTO.ValidationDTO;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Entity.Response;
 import com.youquiz.youquiz.Entity.Validation;
-import com.youquiz.youquiz.Repository.ResponseRepository;
 import com.youquiz.youquiz.Repository.ValidationRepository;
 import com.youquiz.youquiz.Service.IValidationService;
 import org.modelmapper.ModelMapper;

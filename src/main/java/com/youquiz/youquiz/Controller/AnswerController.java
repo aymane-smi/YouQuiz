@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +24,14 @@ public class AnswerController {
         Map<String, Object> message = new HashMap<>();
         answerService.create(answerDTO);
         message.put("message", "answer created");
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}/response")
+    public ResponseEntity<Map<String, Object>> findResponsesofUser(@PathVariable long id)throws NotFoundException, Exception{
+        Map<String, Object> message = new HashMap<>();
+        message.put("message", "responses found");
+        message.put("responses", answerService.findResponseofUserQuiz(id));
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 }

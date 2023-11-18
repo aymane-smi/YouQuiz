@@ -1,8 +1,10 @@
 package com.youquiz.youquiz.Service;
 
 import com.youquiz.youquiz.DTO.Answer.AnswerDTO;
-import com.youquiz.youquiz.DTO.Answer.AnswerResponseDTO;
+import com.youquiz.youquiz.DTO.Response.CostumeResponseDTO;
+import com.youquiz.youquiz.DTO.Response.ResponseDTO;
 import com.youquiz.youquiz.Entity.Answer;
+import com.youquiz.youquiz.Entity.Response;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.AnswerRepository;
 import com.youquiz.youquiz.Repository.AssignQuizRepository;
@@ -10,6 +12,9 @@ import com.youquiz.youquiz.Repository.ValidationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class AnswerService implements IAnswerService{
@@ -38,5 +43,13 @@ public class AnswerService implements IAnswerService{
                         validationRepository.findById(answerDTO.getValidation_id()).get()
                 )
         );
+    }
+    @Override
+    public List<CostumeResponseDTO> findResponseofUserQuiz(long assignQuiz_id)throws NotFoundException, Exception{
+     if(assignQuizRepository.existsById(assignQuiz_id) == false)
+         throw new NotFoundException();
+     List<Response> responses = assignQuizRepository.findById(assignQuiz_id).get().getAnswers().
+             stream().map(answer -> answer.getValidation().getResponse()).toList();
+     return Arrays.asList(modelMapper.map(responses, CostumeResponseDTO[].class));
     }
 }
