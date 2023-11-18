@@ -2,9 +2,9 @@ package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.MediaDTO;
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.ResponseDTO;
-import com.youquiz.youquiz.DTO.TempoQuizDTO;
+import com.youquiz.youquiz.DTO.tempoQuiz.TempoQuizDTO;
 import com.youquiz.youquiz.Entity.Media;
 import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Entity.Quiz;

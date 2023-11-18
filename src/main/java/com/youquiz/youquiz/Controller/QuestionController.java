@@ -1,7 +1,7 @@
 package com.youquiz.youquiz.Controller;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
-import com.youquiz.youquiz.DTO.TempoQuizDTO;
+import com.youquiz.youquiz.DTO.tempoQuiz.TempoQuizDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.QuestionService;
 import com.youquiz.youquiz.Service.IMPL.TempoQuizService;

@@ -1,7 +1,6 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.LevelDTO;
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectResponseDTO;
 import com.youquiz.youquiz.Entity.Subject;
@@ -12,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

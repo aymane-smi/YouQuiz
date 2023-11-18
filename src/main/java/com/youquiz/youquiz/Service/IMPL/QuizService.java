@@ -27,11 +27,11 @@ public class QuizService implements IQuizService {
     @Override
     public QuizDTO save(QuizDTO quizDto) throws Exception {
         Quiz quiz = modelMapper.map(quizDto, Quiz.class);
-        /*if (quizDto.getTrainer_id() != null) {
+        if (quizDto.getTrainer_id() != null) {
             Trainer trainer = trainerRepository.findById(quizDto.getTrainer_id())
                     .orElseThrow(() -> new Exception("The trainer with id " + quizDto.getTrainer_id() + " is not found"));
             quiz.setTrainer(trainer);
-        }*/
+        }
         quiz = quizRepository.save(quiz);
         return modelMapper.map(quiz, QuizDTO.class);
     }

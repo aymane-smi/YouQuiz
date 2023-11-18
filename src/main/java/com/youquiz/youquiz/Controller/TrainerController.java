@@ -43,4 +43,10 @@ public class TrainerController {
         TrainerDTO updatedTrainer = trainerService.update(id, trainerDto);
         return ResponseEntity.ok(updatedTrainer);
     }
+
+    @PostMapping
+    public ResponseEntity<TrainerDTO> saveTrainer(@Valid @RequestBody TrainerDTO trainerDto) throws NotFoundException {
+        TrainerDTO updatedTrainer = trainerService.save(trainerDto);
+        return ResponseEntity.ok(updatedTrainer);
+    }
 }

@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.DTO.AssignQuiz;
 
-import com.youquiz.youquiz.DTO.QuizDTO;
+import com.youquiz.youquiz.DTO.Quiz.QuizDTO;
 import com.youquiz.youquiz.DTO.StudentDTO;
 import com.youquiz.youquiz.Enum.Result;
 import lombok.Data;

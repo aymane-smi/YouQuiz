@@ -44,4 +44,9 @@ public class StudentController {
         StudentDTO updatedStudent = studentService.update(id, studentDto);
         return ResponseEntity.ok(updatedStudent);
     }
+    @PostMapping
+    public ResponseEntity<StudentDTO> createStudent(@Valid @RequestBody StudentDTO studentDto) throws NotFoundException{
+        StudentDTO updatedStudent = studentService.save(studentDto);
+        return ResponseEntity.ok(updatedStudent);
+    }
 }
