@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class CostumeResponseDTO {
     private long id;
     private String response;
+    private double point;
 }

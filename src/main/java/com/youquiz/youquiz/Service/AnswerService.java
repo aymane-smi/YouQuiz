@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,8 +49,18 @@ public class AnswerService implements IAnswerService{
     public List<CostumeResponseDTO> findResponseofUserQuiz(long assignQuiz_id)throws NotFoundException, Exception{
      if(assignQuizRepository.existsById(assignQuiz_id) == false)
          throw new NotFoundException();
+     List<Double> points = new ArrayList<>();
      List<Response> responses = assignQuizRepository.findById(assignQuiz_id).get().getAnswers().
-             stream().map(answer -> answer.getValidation().getResponse()).toList();
-     return Arrays.asList(modelMapper.map(responses, CostumeResponseDTO[].class));
+             stream().map(answer -> {
+                 points.add(answer.getValidation().getPoint());
+                 return answer.getValidation().getResponse();
+             }).toList();
+     List<CostumeResponseDTO> costumes = Arrays.asList(modelMapper.map(responses, CostumeResponseDTO[].class));
+     for (int i=0;i<points.size();i++){
+         CostumeResponseDTO costume = costumes.get(i);
+         costume.setPoint(points.get(i));
+         costumes.set(i, costume);
+     }
+     return costumes;
     }
 }
