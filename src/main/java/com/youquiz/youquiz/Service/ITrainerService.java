@@ -15,4 +15,6 @@ public interface ITrainerService {
     TrainerDTO findByID(Long id) throws NotFoundException;
 
     TrainerDTO update(Long id, TrainerDTO trainerDto) throws NotFoundException;
+
+    List<TrainerDTO> findByLimit(int pageNbr);
 }

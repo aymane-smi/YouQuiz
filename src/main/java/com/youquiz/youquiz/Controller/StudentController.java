@@ -27,6 +27,12 @@ public class StudentController {
         return ResponseEntity.ok(studentDto);
     }
 
+    @GetMapping("/find/{page}")
+    public ResponseEntity<List<StudentDTO>> findStudentByID(@PathVariable int page) throws NotFoundException{
+        List<StudentDTO> studentDto = studentService.findByLimit(page);
+        return ResponseEntity.ok(studentDto);
+    }
+
     @GetMapping
     public ResponseEntity<List<StudentDTO>> getStudents() {
         List<StudentDTO> students = studentService.getAll();

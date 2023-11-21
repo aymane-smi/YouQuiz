@@ -7,8 +7,12 @@ import com.youquiz.youquiz.Repository.StudentRepository;
 import com.youquiz.youquiz.Service.IStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -61,5 +65,12 @@ public class StudentService implements IStudentService {
         existingStudent.setDateOfInscription(studentDto.getDateOfInscription());
         Student updatedStudent = studentRepository.save(existingStudent);
         return modelMapper.map(updatedStudent, StudentDTO.class);
+    }
+
+    @Override
+    public List<StudentDTO> findByLimit(int pageNbr){
+        Pageable page = PageRequest.of(pageNbr-1, 10);
+        Page<Student> students = studentRepository.findAll(page);
+        return Arrays.asList(modelMapper.map(students.toList(), StudentDTO[].class));
     }
 }

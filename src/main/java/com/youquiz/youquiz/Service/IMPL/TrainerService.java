@@ -7,8 +7,12 @@ import com.youquiz.youquiz.Repository.TrainerRepository;
 import com.youquiz.youquiz.Service.ITrainerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -60,5 +64,12 @@ public class TrainerService implements ITrainerService {
         existingTrainer.setRole(trainerDto.getRole());
         Trainer updatedTrainer = trainerRepository.save(existingTrainer);
         return modelMapper.map(updatedTrainer, TrainerDTO.class);
+    }
+
+    @Override
+    public List<TrainerDTO> findByLimit(int pageNbr){
+        Pageable page = PageRequest.of(pageNbr-1, 10);
+        Page<Trainer> trainers = trainerRepository.findAll(page);
+        return Arrays.asList(modelMapper.map(trainers.toList(), TrainerDTO[].class));
     }
 }

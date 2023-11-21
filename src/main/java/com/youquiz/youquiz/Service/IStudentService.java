@@ -17,4 +17,6 @@ public interface IStudentService {
 
 
     public StudentDTO update(Long id, StudentDTO studentDto) throws NotFoundException;
+
+    List<StudentDTO> findByLimit(int pageNbr);
 }
