@@ -33,7 +33,7 @@ endpoint| method | payload                                                      
 
 ### Quiz
 endpoint | method | payload                                                                                                                                                     | description
--| - |-------------------------------------------------------------------------------------------------------------------------------------------------------------| - |
+-| - |-------------------------------------------------------------------------------------------------------------------------------------------------------------| - 
 /api/quizz | `POST` | `{score: double, showAnswers: double, showFinalResults: boolean, chanceNbr: int, durationInMinutes: int, remark: string, trainer_id: int, subject_id: int}` | create a quiz
 /api/quizz | `GET` | `-`                                                                                                                                                         | final all quizzes
 /api/quiz/{id} | `GET` | `-`                                                                                                                                                         | final specific id |
@@ -43,7 +43,7 @@ endpoint | method | payload                                                     
 ### Response
 
 endpoint | method | payload | description 
-- | - | - |-------------|
+- | - | - |-------------
 /api/response | `POST` | `{response: int, point: double, question_id: int}` | create a response and assigned to a question
 /api/response/{id} | `PUT` | `{response: int, point: double, question_id: int}` | edit a specific response
 /api/response/{id} | `GET` | `-` | find a speicifc response by id
@@ -51,7 +51,7 @@ endpoint | method | payload | description
 ### Student
 
 endpoint | method | payload | description
-- | - | - | - |
+- | - | - | - 
 /api/student | `POST` | `{firstName: string, lastName: string, birthday: localDate, address: string, dateOfInscription: localDate}` | create a student
 /api/student | `GET` | `-` | get all students
 /api/student/{id} | `GET` | `-` | get a specific student by id
@@ -60,7 +60,7 @@ endpoint | method | payload | description
 
 ### Trainer
 endpoint | method | payload                                                                                     | description
-- | - |---------------------------------------------------------------------------------------------| - |
+- | - |---------------------------------------------------------------------------------------------| - 
 /api/trainer | `POST` | `{firstName: string, lastName: string, birthday: localDate, address: string, role: string}` | create a trainer
 /api/trainer | `GET` | `-`                                                                                         | get all trainers
 /api/trainer/{id} | `GET` | `-`                                                                                         | get a specific trainer by id
@@ -70,7 +70,7 @@ endpoint | method | payload                                                     
 ### AssignQuiz
 
 endpoint | method | payload | descrption 
-- | - | - |------------|
+- | - | - |------------
 /api/assignQuiz | `POST` | `[{score: double, played: int, reason: string, result: string, debutDate: localDateTime, endDate: localDateTime, student_id: int, quiz_id: int}]` | create an assignquiz for one or multiple student
 /api/assignQuiz | `GET` | `-` | get all assignedQuiz
 /api/assignQuiz/{id} | `GET` | `-` | get specific assigned quiz
