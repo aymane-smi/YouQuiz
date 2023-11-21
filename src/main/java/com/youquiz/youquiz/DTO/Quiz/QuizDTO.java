@@ -26,7 +26,9 @@ public class QuizDTO {
     @Min(value = 30, message = "the minimum duration of a quiz is 30 min")
     private Integer durationInMinutes;
     private String remark;
-    //@NotNull(message = "trainer id is required")
-    //private Long trainer_id;
+    @NotNull(message = "trainer id is required")
+    private Long trainer_id;
+    @NotNull(message = "subject id is required")
+    private Long subject_id;
 
 }

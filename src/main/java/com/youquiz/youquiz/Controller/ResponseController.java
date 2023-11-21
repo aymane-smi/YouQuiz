@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.Controller;
 
-import com.youquiz.youquiz.DTO.ResponseDTO;
+import com.youquiz.youquiz.DTO.Response.ResponseDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Service.IMPL.ResponseService;
 import jakarta.validation.Valid;

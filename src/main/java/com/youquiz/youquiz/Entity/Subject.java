@@ -13,7 +13,7 @@ import java.util.List;
 public class Subject implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false, length = 100)
     private String title;

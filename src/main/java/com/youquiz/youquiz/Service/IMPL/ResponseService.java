@@ -1,14 +1,11 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.ResponseDTO;
+import com.youquiz.youquiz.DTO.Response.ResponseDTO;
 import com.youquiz.youquiz.DTO.ValidationDTO;
-import com.youquiz.youquiz.Entity.Question;
 import com.youquiz.youquiz.Entity.Response;
-import com.youquiz.youquiz.Entity.Validation;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.QuestionRepository;
 import com.youquiz.youquiz.Repository.ResponseRepository;
-import com.youquiz.youquiz.Repository.ValidationRepository;
 import com.youquiz.youquiz.Service.IResponseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +37,19 @@ public class ResponseService implements IResponseService {
 
     @Override
     public ResponseDTO update(long id, ResponseDTO responseDTO) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || !responseRepository.existsById(id))
             throw new NotFoundException();
         Response response = responseRepository.findById(id).get();
         response.setResponse(
                 responseDTO.getResponse()
         );
         return modelMapper.map(responseRepository.save(response), ResponseDTO.class);
+    }
+
+    @Override
+    public ResponseDTO findById(long id) throws NotFoundException{
+        if(id <= 0 || !responseRepository.existsById(id))
+            throw new NotFoundException();
+        return modelMapper.map(responseRepository.findById(id), ResponseDTO.class);
     }
 }

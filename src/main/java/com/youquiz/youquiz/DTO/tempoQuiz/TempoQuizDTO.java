@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.DTO;
+package com.youquiz.youquiz.DTO.tempoQuiz;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

@@ -19,7 +19,7 @@ import java.util.List;
 public class Level implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false, length = 255)
     @NotBlank(message = "description can't be null")

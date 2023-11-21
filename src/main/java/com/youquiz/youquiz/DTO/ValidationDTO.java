@@ -1,7 +1,7 @@
 package com.youquiz.youquiz.DTO;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
-import com.youquiz.youquiz.Service.IValidationService;
+import com.youquiz.youquiz.DTO.Response.ResponseDTO;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.Service.IMPL;
 
-import com.youquiz.youquiz.DTO.TempoQuizDTO;
+import com.youquiz.youquiz.DTO.tempoQuiz.TempoQuizDTO;
 import com.youquiz.youquiz.Entity.TempQuiz;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Rename.TempID;

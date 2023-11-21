@@ -1,10 +1,9 @@
 package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.Question.QuestionDTO;
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.Enum.QuestionType;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

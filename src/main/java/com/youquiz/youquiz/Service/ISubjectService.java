@@ -1,6 +1,6 @@
 package com.youquiz.youquiz.Service;
 
-import com.youquiz.youquiz.DTO.QuestionResponseDTO;
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectResponseDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;

@@ -1,4 +1,4 @@
-package com.youquiz.youquiz.DTO;
+package com.youquiz.youquiz.DTO.Question;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
