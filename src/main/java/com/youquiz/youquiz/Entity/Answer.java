@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Answer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)

@@ -20,7 +20,7 @@ import java.util.List;
 public class Question implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false)
     @Min(value = 0, message = "response nomber must be greater or equal then 0")

@@ -2,7 +2,7 @@ package com.youquiz.youquiz.Controller;
 
 import com.youquiz.youquiz.DTO.Answer.AnswerDTO;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
-import com.youquiz.youquiz.Service.AnswerService;
+import com.youquiz.youquiz.Service.IMPL.AnswerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

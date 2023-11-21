@@ -37,12 +37,19 @@ public class ResponseService implements IResponseService {
 
     @Override
     public ResponseDTO update(long id, ResponseDTO responseDTO) throws NotFoundException {
-        if(id <= 0)
+        if(id <= 0 || !responseRepository.existsById(id))
             throw new NotFoundException();
         Response response = responseRepository.findById(id).get();
         response.setResponse(
                 responseDTO.getResponse()
         );
         return modelMapper.map(responseRepository.save(response), ResponseDTO.class);
+    }
+
+    @Override
+    public ResponseDTO findById(long id) throws NotFoundException{
+        if(id <= 0 || !responseRepository.existsById(id))
+            throw new NotFoundException();
+        return modelMapper.map(responseRepository.findById(id), ResponseDTO.class);
     }
 }

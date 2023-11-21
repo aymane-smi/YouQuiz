@@ -28,5 +28,7 @@ public class QuizDTO {
     private String remark;
     @NotNull(message = "trainer id is required")
     private Long trainer_id;
+    @NotNull(message = "subject id is required")
+    private Long subject_id;
 
 }

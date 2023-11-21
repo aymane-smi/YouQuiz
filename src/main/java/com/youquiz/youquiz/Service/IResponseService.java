@@ -6,4 +6,6 @@ import com.youquiz.youquiz.Exceptions.NotFoundException;
 public interface IResponseService {
     ResponseDTO create(ResponseDTO responseDTO);
     ResponseDTO update(long id, ResponseDTO responseDTO) throws NotFoundException;
+
+    ResponseDTO findById(long id) throws NotFoundException;
 }

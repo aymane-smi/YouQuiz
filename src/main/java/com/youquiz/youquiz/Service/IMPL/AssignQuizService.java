@@ -5,6 +5,7 @@ import com.youquiz.youquiz.DTO.AssignQuiz.AssignQuizResponseDTO;
 import com.youquiz.youquiz.Entity.AssignQuiz;
 import com.youquiz.youquiz.Entity.Quiz;
 import com.youquiz.youquiz.Entity.Student;
+import com.youquiz.youquiz.Exceptions.MaxAttemptsReachedException;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.AssignQuizRepository;
 import com.youquiz.youquiz.Repository.QuizRepository;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,31 +37,61 @@ public class AssignQuizService implements IAssignQuizService {
     public List<AssignQuizDTO> saveAll(List<AssignQuizDTO> assignQuizDtos) throws NotFoundException{
         return assignQuizDtos.stream()
                 .map(assignQuizDto -> {
-                    AssignQuiz assignQuiz = modelMapper.map(assignQuizDto, AssignQuiz.class);
+                    List<AssignQuiz> existingAssignQuizzes = assignQuizRepository.findByStudentIdAndQuizId(
+                            assignQuizDto.getStudent_id(), assignQuizDto.getQuiz_id());
 
-                    if (assignQuizDto.getQuiz_id() != null) {
-                        Quiz quiz = null;
+                    if (!existingAssignQuizzes.isEmpty()) {
+                        AssignQuiz existingAssignQuiz = null;
                         try {
-                            quiz = quizRepository.findById(assignQuizDto.getQuiz_id())
-                                    .orElseThrow(() -> new NotFoundException());
+                            existingAssignQuiz = existingAssignQuizzes.stream()
+                                    .max(Comparator.comparingInt(AssignQuiz::getPlayed))
+                                    .orElseThrow(() -> new NotFoundException("No AssignQuiz found"));
                         } catch (NotFoundException e) {
                             throw new RuntimeException(e);
                         }
-                        assignQuiz.setQuiz(quiz);
-                    }
 
-                    if (assignQuizDto.getStudent_id() != null) {
-                        Student student = null;
-                        try {
-                            student = studentRepository.findById(assignQuizDto.getStudent_id())
-                                    .orElseThrow(() -> new NotFoundException());
-                        } catch (NotFoundException e) {
-                            throw new RuntimeException(e);
+                        int chanceNum = existingAssignQuiz.getQuiz().getChanceNbr();
+                        if (existingAssignQuiz.getPlayed() >= chanceNum) {
+                            throw new MaxAttemptsReachedException("Max attempts reached for student id: "
+                                    + assignQuizDto.getStudent_id() + ", quiz id: " + assignQuizDto.getQuiz_id());
                         }
-                        assignQuiz.setStudent(student);
-                    }
 
-                    return assignQuizRepository.save(assignQuiz);
+                        AssignQuiz newAssignQuiz = new AssignQuiz();
+                        newAssignQuiz.setPlayed(existingAssignQuiz.getPlayed() + 1);
+                        newAssignQuiz.setQuiz(existingAssignQuiz.getQuiz());
+                        newAssignQuiz.setStudent(existingAssignQuiz.getStudent());
+                        newAssignQuiz.setReason(existingAssignQuiz.getReason());
+                        newAssignQuiz.setResult(existingAssignQuiz.getResult());
+                        newAssignQuiz.setEndDate(existingAssignQuiz.getEndDate());
+                        newAssignQuiz.setDebutDate(existingAssignQuiz.getDebutDate());
+                        return assignQuizRepository.save(newAssignQuiz);
+                    } else {
+                        AssignQuiz assignQuiz = modelMapper.map(assignQuizDto, AssignQuiz.class);
+
+                        if (assignQuizDto.getQuiz_id() != null) {
+                            Quiz quiz = null;
+                            try {
+                                quiz = quizRepository.findById(assignQuizDto.getQuiz_id())
+                                        .orElseThrow(() -> new NotFoundException("The quiz with id " + assignQuizDto.getQuiz_id() + " is not found"));
+                            } catch (NotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                            assignQuiz.setQuiz(quiz);
+                        }
+
+                        if (assignQuizDto.getStudent_id() != null) {
+                            Student student = null;
+                            try {
+                                student = studentRepository.findById(assignQuizDto.getStudent_id())
+                                        .orElseThrow(() -> new NotFoundException("The student with id " + assignQuizDto.getStudent_id() + " is not found"));
+                            } catch (NotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                            assignQuiz.setStudent(student);
+                        }
+
+                        return assignQuizRepository.save(assignQuiz);
+                    }
                 })
                 .map(assignQuiz -> modelMapper.map(assignQuiz, AssignQuizDTO.class))
                 .collect(Collectors.toList());

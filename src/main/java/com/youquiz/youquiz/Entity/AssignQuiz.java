@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,12 +15,13 @@ import java.util.List;
 
 @Entity
 @Table(name="AssignQuiz")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class AssignQuiz implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
@@ -54,4 +57,8 @@ public class AssignQuiz implements Serializable {
 
     @OneToMany(mappedBy = "assignQuiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
+    @Override
+    public String toString(){
+        return "to string ta3 zab";
+    }
 }
