@@ -57,3 +57,22 @@ endpoint | method | payload | description
 /api/student/{id} | `GET` | `-` | get a specific student by id
 /api/student/{id} | `PUT` | `{firstName: string, lastName: string, birthday: localDate, address: string, dateOfInscription: localDate}` | edit a specific student
 /api/student/{id} | `DELETE` | `-` | delete a specific student
+
+### Trainer
+endpoint | method | payload                                                                                     | description
+- | - |---------------------------------------------------------------------------------------------| - |
+/api/trainer | `POST` | `{firstName: string, lastName: string, birthday: localDate, address: string, role: string}` | create a trainer
+/api/trainer | `GET` | `-`                                                                                         | get all trainers
+/api/trainer/{id} | `GET` | `-`                                                                                         | get a specific trainer by id
+/api/trainer/{id} | `PUT` | `{firstName: string, lastName: string, birthday: localDate, address: string, role: string}` | edit a specific trainer
+/api/trainer/{id} | `DELETE` | `-`                                                                                         | delete a specific trainer
+
+### AssignQuiz
+
+endpoint | method | payload | descrption 
+- | - | - |------------|
+/api/assignQuiz | `POST` | `[{score: double, played: int, reason: string, result: string, debutDate: localDateTime, endDate: localDateTime, student_id: int, quiz_id: int}]` | create an assignquiz for one or multiple student
+/api/assignQuiz | `GET` | `-` | get all assignedQuiz
+/api/assignQuiz/{id} | `GET` | `-` | get specific assigned quiz
+/api/assignQuiz/{id} | `PUT` | `{score: double, played: int, reason: string, result: string, debutDate: localDateTime, endDate: localDateTime, student_id: int, quiz_id: int}` | update a specific assigned quiz
+/api/assignQuiz/{id} | `DELELTE` | `-` | delete a specific quiz

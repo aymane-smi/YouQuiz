@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "api/assignQuiz", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "api/ ", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class AssignQuizController {
 
