@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/level", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "http://localhost:4200")
 public class LevelController {
     @Autowired
     private LevelService levelService;
@@ -74,5 +75,13 @@ public class LevelController {
         }catch (Exception e){
             throw new Exception("cannot find all the levels");
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteLevel(@PathVariable long id) throws NotFoundException{
+        Map<String, String> message = new HashMap<>();
+        levelService.deleteById(id);
+        message.put("message", "delete with success");
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

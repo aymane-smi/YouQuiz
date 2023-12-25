@@ -75,6 +75,12 @@ class AssignQuiz{
   - played: int
   - result: double
 }
+class chat{
+  - message: string,
+  - time: date
+}
+Trainer "1" -- "*"chat
+chat "*" -- "1" Student
 Subject "*" -- "0..1" Subject
 AssignQuiz "*" -- "1" Student
 AssignQuiz "1" -- "*" Answer
