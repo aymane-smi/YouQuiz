@@ -59,4 +59,11 @@ public class LevelService implements ILevelService {
         return Arrays.asList(modelMapper.map(levelRepository.findById(id).get().getQuestions(), QuestionWithoutDetailsDTO[].class));
     }
 
+    @Override
+    public void deleteById(long id) throws NotFoundException{
+        if(id <= 0 || levelRepository.existsById(id) == false)
+            throw new NotFoundException();
+        levelRepository.deleteById(id);
+    }
+
 }

@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/trainers", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
 public class TrainerController {
 
     @Autowired

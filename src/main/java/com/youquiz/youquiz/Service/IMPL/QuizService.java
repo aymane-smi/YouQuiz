@@ -1,7 +1,6 @@
 package com.youquiz.youquiz.Service.IMPL;
 
 import com.youquiz.youquiz.DTO.Quiz.QuizDTO;
-import com.youquiz.youquiz.DTO.Quiz.QuizResponseDTO;
 import com.youquiz.youquiz.Entity.Quiz;
 import com.youquiz.youquiz.Entity.Subject;
 import com.youquiz.youquiz.Entity.Trainer;
@@ -53,17 +52,17 @@ public class QuizService implements IQuizService {
     }
 
     @Override
-    public QuizResponseDTO findByID(long id) throws Exception {
+    public QuizDTO findByID(long id) throws Exception {
         Quiz quiz = quizRepository.findById(id)
                 .orElseThrow(() -> new Exception("The quiz with id " + id + " is not found"));
-        return modelMapper.map(quiz, QuizResponseDTO.class);
+        return modelMapper.map(quiz, QuizDTO.class);
     }
 
     @Override
-    public List<QuizResponseDTO> getAll() {
+    public List<QuizDTO> getAll() {
         List<Quiz> quizzes = quizRepository.findAll();
         return quizzes.stream()
-                .map(quiz -> modelMapper.map(quiz, QuizResponseDTO.class))
+                .map(quiz -> modelMapper.map(quiz, QuizDTO.class))
                 .toList();
     }
 

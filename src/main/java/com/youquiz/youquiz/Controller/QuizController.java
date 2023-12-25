@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/quiz", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
 public class QuizController {
 
     @Autowired
@@ -27,13 +28,13 @@ public class QuizController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdQuiz);
     }
     @GetMapping
-    public ResponseEntity<List<QuizResponseDTO>> getQuizzes() {
-        List<QuizResponseDTO> allQuizzes = quizService.getAll();
+    public ResponseEntity<List<QuizDTO>> getQuizzes() {
+        List<QuizDTO> allQuizzes = quizService.getAll();
         return ResponseEntity.ok(allQuizzes);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<QuizResponseDTO> findQuizByID(@PathVariable Long id)throws Exception {
-        QuizResponseDTO quiz = quizService.findByID(id);
+    public ResponseEntity<QuizDTO> findQuizByID(@PathVariable Long id)throws Exception {
+        QuizDTO quiz = quizService.findByID(id);
         return ResponseEntity.ok(quiz);
     }
     @DeleteMapping("/{id}")

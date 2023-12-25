@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/subject")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SubjectController {
     @Autowired
     private SubjectService subjectService;

@@ -1,7 +1,6 @@
 package com.youquiz.youquiz.Service;
 
 import com.youquiz.youquiz.DTO.Quiz.QuizDTO;
-import com.youquiz.youquiz.DTO.Quiz.QuizResponseDTO;
 
 import java.util.List;
 
@@ -10,9 +9,9 @@ public interface IQuizService {
 
     void delete(long id) throws Exception;
 
-    QuizResponseDTO findByID(long id) throws Exception;
+    QuizDTO findByID(long id) throws Exception;
 
-    List<QuizResponseDTO> getAll();
+    List<QuizDTO> getAll();
 
     QuizDTO update(long id, QuizDTO quizDto) throws Exception;
 }

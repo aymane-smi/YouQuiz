@@ -100,7 +100,7 @@ public class QuestionController {
         Map<String, Object> message = new HashMap<>();
         try{
             message.put("message", "questions found");
-            message.put("medias", questionService.findAll());
+            message.put("questions", questionService.findAll());
             return new ResponseEntity<>(message, HttpStatus.OK);
         }catch(Exception e){
             throw new Exception("cannot found any question");

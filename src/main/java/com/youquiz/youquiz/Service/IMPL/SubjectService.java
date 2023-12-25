@@ -42,7 +42,7 @@ public class SubjectService implements ISubjectService {
     }
     @Override
     public void removeById(long id) throws NotFoundException {
-        if(id <= 0 || subjectRepository.findById(id).get() == null)
+        if(id <= 0 || subjectRepository.existsById(id) == false)
             throw new NotFoundException();
         subjectRepository.deleteById(id);
     }

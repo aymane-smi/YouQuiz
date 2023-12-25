@@ -14,4 +14,5 @@ public interface ILevelService {
     public List<LevelDTO> findAll();
     public List<QuestionWithoutDetailsDTO> findLevelQuestionById(long id) throws NotFoundException;
 
+    void deleteById(long id) throws NotFoundException;
 }
