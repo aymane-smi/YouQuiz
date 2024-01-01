@@ -1,9 +1,8 @@
 package com.youquiz.youquiz.Service.IMPL;
 
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.Quiz.QuizDTO;
-import com.youquiz.youquiz.Entity.Quiz;
-import com.youquiz.youquiz.Entity.Subject;
-import com.youquiz.youquiz.Entity.Trainer;
+import com.youquiz.youquiz.Entity.*;
 import com.youquiz.youquiz.Exceptions.NotFoundException;
 import com.youquiz.youquiz.Repository.QuizRepository;
 import com.youquiz.youquiz.Repository.SubjectRepository;
@@ -13,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -92,5 +93,18 @@ public class QuizService implements IQuizService {
         }
         Quiz updatedQuiz = quizRepository.save(existingQuiz);
         return modelMapper.map(updatedQuiz, QuizDTO.class);
+    }
+
+    @Override
+    public List<QuestionResponseDTO> getQuizResponse(long id)throws Exception{
+        Quiz existingQuiz = quizRepository.findById(id)
+                .orElseThrow(() -> new Exception("The quiz with id " + id + " is not found"));
+        List<QuestionResponseDTO> questions = new ArrayList<>();
+        for(TempQuiz tempQuiz:existingQuiz.getTempoQuiz()){
+            var question = modelMapper.map(tempQuiz.getQuestion(), QuestionResponseDTO.class);
+            question.setDuration(tempQuiz.getTime());
+            questions.add(question);
+        }
+        return Arrays.asList(modelMapper.map(questions, QuestionResponseDTO[].class));
     }
 }

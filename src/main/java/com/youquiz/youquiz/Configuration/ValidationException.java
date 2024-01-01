@@ -40,4 +40,12 @@ public class ValidationException {
         errors.put("error", ex.getMessage());
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public Map<String, String> handleRuntimeException(RuntimeException ex){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
 }

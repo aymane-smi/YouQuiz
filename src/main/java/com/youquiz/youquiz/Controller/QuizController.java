@@ -1,5 +1,6 @@
 package com.youquiz.youquiz.Controller;
 
+import com.youquiz.youquiz.DTO.Question.QuestionResponseDTO;
 import com.youquiz.youquiz.DTO.Quiz.QuizDTO;
 import com.youquiz.youquiz.DTO.Quiz.QuizResponseDTO;
 import com.youquiz.youquiz.Service.IMPL.QuizService;
@@ -46,5 +47,10 @@ public class QuizController {
     public ResponseEntity<QuizDTO> updateQuiz(@PathVariable Long id, @Valid @RequestBody QuizDTO quizDto)throws Exception {
         QuizDTO updatedQuiz = quizService.update(id, quizDto);
         return ResponseEntity.ok(updatedQuiz);
+    }
+
+    @GetMapping("/{id}/questions")
+    public ResponseEntity<List<QuestionResponseDTO>> getQuestions(@PathVariable Long id)throws Exception{
+        return ResponseEntity.ok(quizService.getQuizResponse(id));
     }
 }

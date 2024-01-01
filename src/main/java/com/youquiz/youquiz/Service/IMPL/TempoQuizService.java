@@ -21,16 +21,21 @@ public class TempoQuizService implements ITempoQuizService {
     private TempQuizRepository tempQuizRepository;
     @Override
     public void create(TempoQuizDTO tempQuiz) throws NotFoundException, Exception {
-        if(quizRepository.existsById(tempQuiz.getQuiz_id()) == false || questionRepository.existsById(tempQuiz.getQuestion_id()) == false)
-            throw new NotFoundException();
-        TempID tempID = new TempID(tempQuiz.getQuiz_id(), tempQuiz.getQuestion_id());
-        if (tempQuizRepository.existsById(tempID) == true)
-            throw new Exception("question already assigned to the quiz");
-        tempQuizRepository.save(new TempQuiz(
-                tempID,
-                tempQuiz.getDuration(),
-                quizRepository.findById(tempQuiz.getQuiz_id()).get(),
-                questionRepository.findById(tempQuiz.getQuestion_id()).get()
-        ));
+        if(tempQuizRepository.sumTimeByQuizId(tempQuiz.getQuiz_id())+tempQuiz.getDuration() < quizRepository.findDurationInMinutesByQuizId(tempQuiz.getQuiz_id())*60){
+            if(quizRepository.existsById(tempQuiz.getQuiz_id()) == false || questionRepository.existsById(tempQuiz.getQuestion_id()) == false)
+                throw new NotFoundException();
+            TempID tempID = new TempID(tempQuiz.getQuiz_id(), tempQuiz.getQuestion_id());
+            if (tempQuizRepository.existsById(tempID) == true)
+                throw new Exception("question already assigned to the quiz");
+            tempQuizRepository.save(new TempQuiz(
+                    tempID,
+                    tempQuiz.getDuration(),
+                    quizRepository.findById(tempQuiz.getQuiz_id()).get(),
+                    questionRepository.findById(tempQuiz.getQuestion_id()).get()
+            ));
+        }else{
+            throw new RuntimeException("the question duration have a big duration to the quiz");
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 package com.youquiz.youquiz.DTO.Question;
 
 import com.youquiz.youquiz.DTO.LevelDTO;
+import com.youquiz.youquiz.DTO.Response.CostumeResponseDTO;
 import com.youquiz.youquiz.DTO.Subject.SubjectDTO;
 import com.youquiz.youquiz.Enum.QuestionType;
 import lombok.Data;
@@ -19,4 +20,5 @@ public class QuestionResponseDTO {
     private double totalScore;
     private SubjectDTO subject;
     private LevelDTO level;
+    private int duration;
 }

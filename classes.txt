@@ -10,6 +10,10 @@ enum MediaType{
   SOUND
   DOCUMENT
 }
+enum Sender{
+  TRAINER
+  STUDENT
+}
 class Quiz{
   - id: int
   - score: double
@@ -75,12 +79,24 @@ class AssignQuiz{
   - played: int
   - result: double
 }
-class chat{
-  - message: string,
+class Chat{
+  - message: string
   - time: date
+  - sender: Sender
 }
-Trainer "1" -- "*"chat
-chat "*" -- "1" Student
+class Room{
+  - id: Long
+}
+class Notification{
+  - id: Long
+  - message: string
+}
+Trainer "1" -- "*"Room
+Room "*" -- "*" Student
+Trainer "1" -- "*" Chat
+Chat "*" -- "1" Student
+Trainer "1" -- "*" Notification
+Notification "*" -- "1" Student
 Subject "*" -- "0..1" Subject
 AssignQuiz "*" -- "1" Student
 AssignQuiz "1" -- "*" Answer
