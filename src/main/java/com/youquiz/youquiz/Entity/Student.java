@@ -23,4 +23,6 @@ public class Student extends User implements Serializable {
     private List<AssignQuiz> assignQuiz;
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chat> chats;
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
 }

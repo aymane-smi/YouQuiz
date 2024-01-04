@@ -14,17 +14,24 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/response")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ResponseController {
     @Autowired
     private ResponseService responseService;
     @PostMapping
     public ResponseEntity<Map<String, Object>> createResponse(@Valid @RequestBody ResponseDTO responseDTO)throws Exception{
         Map<String, Object> message = new HashMap<>();
+        System.out.println("==>1*");
         try{
+            System.out.println("==>2*");
             message.put("message", "response created");
+            System.out.println("==>3*");
             message.put("response", responseService.create(responseDTO));
+            System.out.println("==>4*");
             return new ResponseEntity<>(message, HttpStatus.CREATED);
         }catch (Exception e){
+            e.getStackTrace();
+            System.out.println("=>"+e.getMessage());
             throw new Exception("cannot create a response");
         }
     }

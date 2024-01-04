@@ -137,7 +137,10 @@ public class QuestionService implements IQuestionService{
             throw new NotFoundException();
         List<ResponseDTO> responses = new ArrayList<>();
         question.getValidations().forEach((v)->{
-            responses.add(modelMapper.map(v.getResponse(), ResponseDTO.class));
+            ResponseDTO response = modelMapper.map(v.getResponse(), ResponseDTO.class);
+            response.setQuestion_id(id);
+            response.setPoint(v.getPoint());
+            responses.add(response);
         });
         return responses;
     }

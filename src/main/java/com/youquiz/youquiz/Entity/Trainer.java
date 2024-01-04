@@ -22,4 +22,6 @@ public class Trainer extends User implements Serializable {
     private List<Quiz> quizs;
     @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Chat> chats;
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
 }

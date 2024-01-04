@@ -17,5 +17,8 @@ public class ResponseDTO {
     private double point;
     @Min(value = 0, message = "invalid question id")
     @NotNull(message = "response require question id")
-    private long question_id;
+    private Long question_id;
+    //@NotNull(message = "the position of a response is required")
+    //@Min(value = 1, message = "the position value can't be less then 1")
+    private int position;
 }

@@ -22,4 +22,5 @@ public class Response implements Serializable {
     private String response;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "response", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Validation> validations;
+    private int position=0;
 }
